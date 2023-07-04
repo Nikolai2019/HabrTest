@@ -14,7 +14,6 @@ import java.time.Duration;
 
 public class MainPageTest {
     private WebDriver driver;
-    private MainPage mainPage;
 
     @BeforeEach
     public void setUp() {
@@ -24,9 +23,8 @@ public class MainPageTest {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://www.jetbrains.com/");
+        driver.get("https://www.habr.com/");
 
-        mainPage = new MainPage(driver);
     }
 
     @AfterEach
@@ -35,34 +33,15 @@ public class MainPageTest {
     }
 
     @Test
-    public void search() {
-        mainPage.searchButton.click();
+    public void changeLogTest() {
 
-        WebElement searchField = driver.findElement(By.cssSelector("[data-test='search-input']"));
-        searchField.sendKeys("Selenium");
+        WebElement userIcon = driver.findElement(By.cssSelector("svg[data-test-id='menu-toggle-guest']"));
+        userIcon.click();
 
-        WebElement submitButton = driver.findElement(By.cssSelector("button[data-test='full-search-button']"));
-        submitButton.click();
+        WebElement rulesLink = driver.findElement(By.xpath("//*[contains(text(),'Правила сайта')]"));
+        rulesLink.click();
 
-        WebElement searchPageField = driver.findElement(By.cssSelector("input[data-test='search-input']"));
-        assertEquals("Selenium", searchPageField.getAttribute("value"));
+        assertTrue(driver.findElement(By.xpath("//*[contains(text(),'Changelog')]")).isDisplayed(), "CHANGELOG не найден");
     }
 
-    @Test
-    public void toolsMenu() {
-        mainPage.toolsMenu.click();
-
-        WebElement menuPopup = driver.findElement(By.cssSelector("div[data-test='main-submenu']"));
-        assertTrue(menuPopup.isDisplayed());
-    }
-
-    @Test
-    public void navigationToAllTools() {
-        mainPage.seeDeveloperToolsButton.click();
-        mainPage.findYourToolsButton.click();
-
-        WebElement productsList = driver.findElement(By.id("products-page"));
-        assertTrue(productsList.isDisplayed());
-        assertEquals("All Developer Tools and Products by JetBrains", driver.getTitle());
-    }
 }
