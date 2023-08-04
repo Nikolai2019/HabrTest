@@ -83,10 +83,9 @@ public class MainPageTest {
     @Order(4)
     public void visibleButtonTest(){
         driver.get("https://demoqa.com/dynamic-properties");
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(1));
-        WebElement visibleButton = driver.findElement(By.cssSelector("#visibleAfter"));
-        wait.until(ExpectedConditions.visibilityOf(visibleButton));
-        assertTrue(visibleButton.isDisplayed(),"Кнопка не отображена");
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#visibleAfter")));
+        WebElement displayedButton = driver.findElement(By.cssSelector("#visibleAfter"));
+        assertTrue(displayedButton.isDisplayed(), "Кнопка не стала видимой");
     }
-
 }
