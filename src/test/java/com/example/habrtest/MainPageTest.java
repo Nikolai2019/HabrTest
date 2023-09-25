@@ -36,8 +36,6 @@ public class MainPageTest {
     }
 
     @Test
-    @Order(1)
-    @Disabled
     public void changeLogTest() {
         driver.get("https://www.habr.com/");
         WebElement userIcon = driver.findElement(By.cssSelector("svg[data-test-id='menu-toggle-guest']"));
@@ -51,9 +49,7 @@ public class MainPageTest {
     }
 
     @Test
-    @DisplayName("Проверка заголовка Техническая поддержка")
-    @Order(2)
-    @Disabled
+    @DisplayName("Проверка заголовка \"Техническая поддержка\"")
     public void supportHeaderTest(){
         driver.get("https://www.habr.com/");
         WebElement supportButton = driver.findElement(By.xpath("//*[contains(text(),'Техническая поддержка')]"));
@@ -65,9 +61,7 @@ public class MainPageTest {
     }
 
     @Test
-    @DisplayName("Проверка наличия кнопки Отправить на форме обращения")
-    @Order(3)
-    @Disabled
+    @DisplayName("Проверка наличия кнопки \"Отправить\" на форме обращения")
     public void sendButtonSupportTest(){
         driver.get("https://www.habr.com/");
         WebElement supportButton = driver.findElement(By.xpath("//*[contains(text(),'Техническая поддержка')]"));
@@ -76,16 +70,5 @@ public class MainPageTest {
         WebElement submitButton = driver.findElement(By.cssSelector("button[class='tm-form__submit base-button']"));
         assertTrue(submitButton.isDisplayed(),"Кнопка отсутствует");
         System.out.println(submitButton);
-    }
-
-    @Test
-    @DisplayName("Visible After Button")
-    @Order(4)
-    public void visibleButtonTest(){
-        driver.get("https://demoqa.com/dynamic-properties");
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#visibleAfter")));
-        WebElement displayedButton = driver.findElement(By.cssSelector("#visibleAfter"));
-        assertTrue(displayedButton.isDisplayed(), "Кнопка не стала видимой");
     }
 }
